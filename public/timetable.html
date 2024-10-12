@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="w3-container">
+		<h2>Your Timetable</h2>
+		<table class="w3-table w3-bordered">
+			<thead>
+				<tr>
+					<th>Day</th>
+					<th>Subject</th>
+					<th>Start Time</th>
+					<th>End Time</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for entry in timetable %}
+					<tr>
+						<td>{{ entry.day_of_week }}</td>
+						<td>{{ entry.subject_id }}</td>
+						<td>{{ entry.start_time }}</td>
+						<td>{{ entry.end_time }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<!-- Back to Dashboard Button -->
+		<div class="w3-margin-top">
+			<a href="{{ url_for('dashboard_page') }}" class="w3-button w3-blue">Back to Dashboard</a>
+		</div>
+	</div>
+{% endblock %}

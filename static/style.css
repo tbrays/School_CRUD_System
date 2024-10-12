@@ -1,0 +1,47 @@
+body {
+	background-color: #f4f4f9;
+}
+
+.w3-container {
+	margin: 20px;
+}
+
+.header {
+	background-color: #a8c0c2;
+	padding: 10px;
+}
+
+.header h1 {
+	display: inline;
+	color: white;
+}
+
+.header img {
+	width: 100px;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.navbar {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.navbar a {
+	color: white;
+	padding: 14px 20px;
+	text-decoration: none;
+	text-align: center;
+}
+
+.navbar a:hover {
+	background-color:#b0c4c5;
+}
+
+.footer {
+	margin-top: 50px;
+	text-align: center;
+	background-color: #a8c0c2;
+	color: white;
+	padding: 10px;
+}

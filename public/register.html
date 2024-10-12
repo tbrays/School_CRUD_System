@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Register - School Management System{% endblock %}
+
+{% block content %}
+	<div class="w3-container">
+		<h2>Register User</h2>
+
+		<!-- Error Message -->
+		{% if error %}
+			<div class="w3-panel w3-red">
+				<p>{{ error }}</p>
+			</div>
+		{% endif %}
+
+		<!-- Registration Form -->
+		<form action="/register" method="POST" class="w3-container w3-card-4 w3-light-grey">
+
+			<!-- Username and Email Fields -->
+			<div class="w3-row-padding">
+				<div class="w3-half">
+					<label for="username">Username:</label>
+					<input class="w3-input" type="text" id="username" name="username" required>
+				</div>
+				<div class="w3-half">
+					<label for="email">Email:</label>
+					<input class="w3-input" type="email" id="email" name="email" required>
+				</div>
+			</div>
+
+			<!-- Password and Confirm Password Fields -->
+			<div class="w3-row-padding">
+				<div class="w3-half">
+					<label for="password">Password:</label>
+					<input class="w3-input" type="password" id="password" name="password" required>
+				</div>
+				<div class="w3-half">
+					<label for="confirm_password">Confirm Password:</label>
+					<input class="w3-input" type="password" id="confirm_password" name="confirm_password" required>
+				</div>
+			</div>
+
+			<!-- Role Selection -->
+			<div class="w3-row-padding">
+				<div class="w3-half">
+					<label for="role">Select Role:</label><br>
+					<input class="w3-radio" type="radio" id="student" name="role" value="student" checked onchange="toggleStudentFields()">
+					<label for="student">Student</label><br>
+				</div>
+
+				<!-- Student-specific fields -->
+				<div id="student-fields" class="w3-half" style="display: block;">
+					<label for="year_group">Year Group:</label>
+					<select class="w3-select" id="year_group" name="year_group" required>
+						<option value="" disabled selected>Select your year group</option>
+						<option value="1">Year 1</option>
+						<option value="2">Year 2</option>
+					</select>
+					<label>
+						<input class="w3-check" type="checkbox" name="enrolled" id="enrolled" checked> Enrolled
+					</label>
+				</div>
+			</div>
+
+			<!-- Register Button -->
+			<button type="submit" class="w3-button w3-blue">Register</button>
+		</form>
+	</div>
+
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<title>{% block title %}School Management System{% endblock %}</title>
+	</head>
+	
+	<body>
+		<!-- Header -->
+		<div class="header w3-container">
+			<h1><img src="static/images/logo.webp" alt="Logo" style="vertical-align: middle; width: 50px;">School Management System</h1>
+			<div class="navbar">
+				<a href="{{ url_for('home_page') }}">Home</a>
+				{% block navbar %}
+				{% endblock %}
+				<a href="{{ url_for('logout') }}" class="w3-right">Logout</a>
+			</div>
+		</div>
+		
+		<!-- Main Content -->
+		<div class="w3-container" style="margin-top: 30px;">
+			{% block content %}
+			{% endblock %}
+		</div>
+		
+		<!-- Footer -->
+		<footer class="footer w3-container w3-teal w3-center" style="margin-top: 50px;">
+			<p>&copy; 2024 School Management System. All rights reserved.</p>
+		</footer>
+		
+	</body>
+</html>

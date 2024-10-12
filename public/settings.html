@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Settings - School Management System{% endblock %}
+
+{% block content %}
+	<div class="w3-container w3-padding-16">
+		<h2 class="w3-text-teal">Security Settings</h2>
+		
+		<div class="w3-card-4 w3-margin">
+			<div class="w3-container w3-teal">
+				<h5>Manage Security Features</h5>
+			</div>
+			<div class="w3-container">
+				<form method="POST" action="{{ url_for('settings_page') }}">
+					<button type="submit" class="w3-button w3-yellow w3-margin-top w3-margin-bottom">
+						{% if security_enabled %}
+							Disable Login Attempt Security 
+						{% else %}
+							Enable Login Attempt Security 
+						{% endif %}
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="w3-margin-top">
+			<div class="w3-panel {% if security_enabled %}w3-green{% else %}w3-red{% endif %}">
+				<p>
+					{% if security_enabled %}
+						Login Attempt Security is currently <strong>enabled</strong>.
+					{% else %}
+						Login Attempt Security is currently <strong>disabled</strong>.
+					{% endif %}
+				</p>
+			</div>
+		</div>
+
+		<!-- Back to Dashboard Button -->
+		<div class="w3-margin-top">
+			<a href="{{ url_for('dashboard_page') }}" class="w3-button w3-blue">Back to Dashboard</a>
+		</div>
+	</div>
+{% endblock %}

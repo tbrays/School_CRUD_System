@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Edit User - School Management System{% endblock %}
+
+{% block content %}
+	<div class="w3-container">
+		<h2>Edit User</h2>
+		<form action="{{ url_for('edit_user_page', user_id=user.user_id) }}" method="POST" class="w3-container w3-card-4 w3-light-grey">
+			<div class="w3-row-padding">
+				<div class="w3-half">
+					<label for="username">Username:</label>
+					<input class="w3-input" type="text" id="username" name="username" value="{{ user.username }}" required>
+				</div>
+				<div class="w3-half">
+					<label for="email">Email:</label>
+					<input class="w3-input" type="email" id="email" name="email" value="{{ user.email }}" required>
+				</div>
+			</div>
+			<div class="w3-row-padding">
+				<div class="w3-half">
+					<label for="role">Role:</label>
+					<select class="w3-select" id="role" name="role" required>
+						<option value="admin" {% if user.role == 'admin' %} selected {% endif %}>Admin</option>
+						<option value="teacher" {% if user.role == 'teacher' %} selected {% endif %}>Teacher</option>
+						<option value="student" {% if user.role == 'student' %} selected {% endif %}>Student</option>
+					</select>
+				</div>
+			</div>
+			<button type="submit" name="save_user" class="w3-button w3-blue">Save Changes</button>
+			<a href="{{ url_for('manage_users_page') }}" class="w3-button w3-grey">Cancel</a>
+		</form>
+	</div>
+{% endblock %}

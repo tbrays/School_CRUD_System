@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - School Management System{% endblock %}
+
+{% block navbar %}
+	
+{% endblock %}
+
+{% block content %}
+	<h2>Welcome to Your Dashboard</h2>
+
+	{% if role == 'admin' %}
+		<h3>Admin Dashboard</h3>
+		<p>As an admin, you can manage users, manage timetables and adjust system settings.</p>
+
+		<!-- Admin Cards -->
+		<div class="w3-row-padding w3-margin-top">
+		
+			<!-- View Users Card -->
+			<div class="w3-third w3-margin-bottom">
+				<div class="w3-card-4 w3-center">
+					<img class="w3-margin-top" src="static/images/user.webp" alt="Manage Users" style="width:50%">
+					<div class="w3-container w3-center">
+						<h3>Manage Users</h3>
+						<p><a href="{{ url_for('manage_users_page') }}" class="w3-button w3-blue">Go to Manage Users</a></p>
+					</div>
+				</div>
+			</div>
+		
+			<!-- Add Timetable Card -->
+			<div class="w3-third w3-margin-bottom">
+				<div class="w3-card-4 w3-center">
+					<img class="w3-margin-top" src="static/images/timetable.webp" alt="Manage Timetable" style="width:50%;" >
+					<div class="w3-container w3-center">
+						<h3>Manage Timetable</h3>
+						<p><a href="{{ url_for('manage_timetable_page') }}" class="w3-button w3-blue">Go to Add Timetable</a></p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Settings Card -->
+			<div class="w3-third w3-margin-bottom">
+				<div class="w3-card-4 w3-center">
+					<img class="w3-margin-top" src="static/images/settings.webp" alt="Manage Settings" style="width:50%">
+					<div class="w3-container w3-center">
+						<h3>Settings</h3>
+						<p><a href="{{ url_for('settings_page') }}" class="w3-button w3-blue">Go to Settings</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	{% elif role == 'student' %}
+		<p>As a student, you can view your class schedule.</p>
+
+		<!-- Student Cards -->
+		<div class="w3-container">
+			
+			<div class="w3-row-padding">
+				<!-- Timetable Card -->
+				<div class="w3-third w3-margin-bottom">
+					<div class="w3-card-4 w3-center">
+						<img class="w3-margin-top" src="static/images/timetable.webp" alt="View Timetable" style="width:50%">
+						<div class="w3-container w3-center">
+							<h3>View Timetable</h3>
+							<p><a href="{{ url_for('timetable_page') }}" class="w3-button w3-blue">Timetable</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	{% elif role == 'teacher' %}
+		<p>As a teacher, you can view your class schedule.</p>
+		<!-- Teacher Cards -->
+		<div class="w3-container">
+			
+			<div class="w3-row-padding">
+				<!-- Timetable Card -->
+				<div class="w3-third w3-margin-bottom">
+					<div class="w3-card-4 w3-center">
+						<img class="w3-margin-top" src="static/images/timetable.webp" alt="View Timetable" style="width:50%">
+						<div class="w3-container w3-center">
+							<h3>View Timetable</h3>
+							<p><a href="{{ url_for('timetable_page') }}" class="w3-button w3-blue">Timetable</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

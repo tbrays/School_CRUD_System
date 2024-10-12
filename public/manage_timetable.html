@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Timetable - School Management System{% endblock %}
+
+{% block content %}
+	<div class="w3-container">
+		<h2>Manage Timetable</h2>
+
+		<div class="w3-row-padding">
+			<!-- Timetable View Section -->
+			<div class="w3-half">
+				<h3>Your Timetable</h3>
+				
+				<form action="{{ url_for('manage_timetable_page') }}" method="GET">
+					<label for="user_id">Select User:</label>
+					<select name="user_id" required class="w3-select w3-border" onchange="this.form.submit()">
+						<option value="" disabled selected>Select a User</option>
+						{% for student in students %}
+							<option value="{{ student.user_id }}">{{ student.username }} (Student)</option>
+						{% endfor %}
+						{% for teacher in teachers %}
+							<option value="{{ teacher.user_id }}">{{ teacher.username }} (Teacher)</option>
+						{% endfor %}
+					</select>
+				</form>
+						
+				<table class="w3-table w3-bordered">
+					<thead>
+						<tr>
+							<th>Day</th>
+							<th>Subject</th>
+							<th>Start Time</th>
+							<th>End Time</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+				    {% for entry in timetable %}
+							<tr>
+								<td>{{ entry.day_of_week }}</td>
+								<td>{{ entry.subject_id }}</td>
+								<td>{{ entry.start_time }}</td>
+								<td>{{ entry.end_time }}</td>
+								<td>
+									<form action="{{ url_for('manage_timetable_page') }}" method="POST" style="display:inline;">
+										<input type="hidden" name="entry_id" value="{{ entry.entry_id }}">
+										<button type="submit" class="w3-button w3-red">Delete</button>
+									</form>
+								</td>
+							</tr>
+				    {% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<!-- Add Subject and Add Timetable Entry Section -->
+			<div class="w3-half">
+				<h3>Add Subject</h3>
+				<form action="{{ url_for('manage_timetable_page') }}" method="POST" class="w3-container w3-card-4 w3-light-grey">
+					<label for="subject_name">Subject Name:</label>
+					<input type="text" name="subject_name" required class="w3-input w3-border">
+					<div class="w3-margin-top w3-margin-bottom">
+						<input type="submit" class="w3-button w3-blue" value="Add Subject">
+					</div>
+				</form>
+
+				<h3 class="w3-margin-top">Add Timetable Entry</h3>
+					<form action="{{ url_for('manage_timetable_page') }}" method="POST">
+						<label for="user_id">Select User:</label>
+						<select name="user_id" required class="w3-select w3-border">
+							<option value="" disabled selected>Select a User</option>
+							{% for student in students %}
+								<option value="{{ student.user_id }}">{{ student.username }} (Student)</option>
+							{% endfor %}
+							{% for teacher in teachers %}
+								<option value="{{ teacher.user_id }}">{{ teacher.username }} (Teacher)</option>
+							{% endfor %}
+						</select>
+
+						<label for="subject_id">Subject Name:</label>
+						<select name="subject_id" required class="w3-select w3-border">
+							<option value="" disabled selected>Select a Subject</option>
+							{% for subject in subjects %}
+								<option value="{{ subject.subject_id }}">{{ subject.name }}</option>
+							{% endfor %}
+						</select>
+
+						<label for="day_of_week">Day of the Week:</label>
+						<select name="day_of_week" required class="w3-select w3-border">
+							<option value="Monday">Monday</option>
+							<option value="Tuesday">Tuesday</option>
+							<option value="Wednesday">Wednesday</option>
+							<option value="Thursday">Thursday</option>
+							<option value="Friday">Friday</option>
+						</select>
+
+						<label for="start_time">Start Time:</label>
+						<select name="start_time" required class="w3-select w3-border">
+							<option value="" disabled selected>Select Start Time</option>
+							<option value="09:00">9:00 AM</option>
+							<option value="10:00">10:00 AM</option>
+							<option value="11:00">11:00 AM</option>
+							<option value="12:00">12:00 PM</option>
+							<option value="13:00">1:00 PM</option>
+							<option value="14:00">2:00 PM</option>
+							<option value="15:00">3:00 PM</option>
+						</select>
+
+						<label for="end_time">End Time:</label>
+						<select name="end_time" required class="w3-select w3-border">
+							<option value="" disabled selected>Select End Time</option>
+							<option value="10:00">10:00 AM</option>
+							<option value="11:00">11:00 AM</option>
+							<option value="12:00">12:00 PM</option>
+							<option value="13:00">1:00 PM</option>
+							<option value="14:00">2:00 PM</option>
+							<option value="15:00">3:00 PM</option>
+							<option value="16:00">4:00 PM</option>
+						</select>
+
+						<div class="w3-margin-top w3-margin-bottom">
+							<input type="submit" class="w3-button w3-blue" value="Add Timetable Entry">
+						</div>
+					</form>
+				</div>
+			</div>
+	
+		<!-- Back to Dashboard Button -->
+		<div class="w3-margin-top">
+			<a href="{{ url_for('dashboard_page') }}" class="w3-button w3-blue">Back to Dashboard</a>
+		</div>
+	</div>
+{% endblock %}

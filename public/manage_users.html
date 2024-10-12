@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Users - School Management System{% endblock %}
+
+{% block content %}
+	<div class="w3-container w3-row-padding">
+
+		<!-- Left: List Users -->
+		<div class="w3-half w3-margin-bottom">
+			<h3>Registered Users</h3>
+			{% if users %}
+				<table class="w3-table w3-striped w3-bordered">
+					<thead>
+						<tr>
+							<th>Username</th>
+							<th>Email</th>
+							<th>Role</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td>{{ user.username }}</td>
+								<td>{{ user.email }}</td>
+								<td>{{ user.role }}</td>
+								<td>
+									<!-- Edit button for each user -->
+									<form action="{{ url_for('edit_user_page', user_id=user.user_id) }}" method="GET" style="display:inline;">
+										<button type="submit" class="w3-button w3-green w3-small">Edit</button>
+									</form>
+									<!-- Delete button for each user -->
+									<form action="{{ url_for('manage_users_page') }}" method="POST" style="display:inline;">
+										<input type="hidden" name="user_id" value="{{ user.user_id }}">
+										<button type="submit" name="delete_user" class="w3-button w3-red w3-small">Delete</button>
+									</form>
+									<!-- Reset Password button for each user -->
+									<form action="{{ url_for('manage_users_page') }}" method="POST" style="display:inline;">
+										<input type="hidden" name="user_id" value="{{ user.user_id }}">
+										<button type="submit" name="reset_password" class="w3-button w3-orange w3-small">Reset Password</button>
+									</form>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% else %}
+				<p>No users found.</p>
+			{% endif %}
+		</div>
+
+		<!-- Right: Add New User Form -->
+		<div class="w3-half w3-margin-bottom">
+			<h3>Add New User</h3>
+
+			<!-- Error Message -->
+			{% if error %}
+				<div class="w3-panel w3-red">
+					<p>{{ error }}</p>
+				</div>
+			{% endif %}
+
+			<form action="{{ url_for('manage_users_page') }}" method="POST" class="w3-container w3-card-4 w3-light-grey">
+				<!-- Username and Email Fields -->
+				<div class="w3-row-padding">
+					<div class="w3-half">
+						<label for="username">Username:</label>
+						<input class="w3-input" type="text" id="username" name="username" required>
+					</div>
+					<div class="w3-half">
+						<label for="email">Email:</label>
+						<input class="w3-input" type="email" id="email" name="email" required>
+					</div>
+				</div>
+
+				<!-- Password and Confirm Password Fields -->
+				<div class="w3-row-padding">
+					<div class="w3-half">
+						<label for="password">Password:</label>
+						<input class="w3-input" type="password" id="password" name="password" required>
+					</div>
+					<div class="w3-half">
+						<label for="confirm_password">Confirm Password:</label>
+						<input class="w3-input" type="password" id="confirm_password" name="confirm_password" required>
+					</div>
+				</div>
+
+				<!-- Role Selection -->
+				<div class="w3-row-padding">
+					<div class="w3-half">
+						<label for="role">Select Role:</label><br>
+						<input class="w3-radio" type="radio" id="student" name="role" value="student" checked onchange="toggleStudentFields()">
+						<label for="student">Student</label><br>
+						<input class="w3-radio" type="radio" id="admin" name="role" value="admin" onchange="toggleStudentFields()">
+						<label for="admin">Admin</label><br>
+						<input class="w3-radio" type="radio" id="teacher" name="role" value="teacher" onchange="toggleStudentFields()">
+						<label for="teacher">Teacher</label><br>
+					</div>
+
+					<!-- Student specific fields on the right -->
+					<div id="student-fields" class="w3-half">
+						<label for="year_group">Year Group:</label>
+						<select class="w3-select" id="year_group" name="year_group">
+							<option value="" disabled selected>Select your year group</option>
+							<option value="1">Year 1</option>
+							<option value="2">Year 2</option>
+						</select>
+						<label>
+							<input class="w3-check" type="checkbox" name="enrolled" id="enrolled"> Enrolled
+						</label>
+					</div>
+				</div>
+
+				<div class="w3-margin-top w3-margin-bottom">
+					<button type="submit" name="add_user" class="w3-button w3-blue">Add User</button>
+				</div>
+			</form>
+		</div>
+
+		<!-- Back to Dashboard Button -->
+		<div class="w3-margin-top">
+			<a href="{{ url_for('dashboard_page') }}" class="w3-button w3-blue">Back to Dashboard</a>
+		</div>
+	</div>
+
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}
